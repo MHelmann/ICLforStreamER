@@ -1,0 +1,86 @@
+{
+    "pool_a_file": "../input/entity_pool/movies/entity_imdbProfiles.json",
+    "pool_b_file": "../input/entity_pool/movies/entity_dbpediaProfiles.json",
+    "ground_truth_file": "../input/entity_pool/movies/ground_truth_moviesIdDuplicates.json",
+    "mongodb": {
+        "host": "localhost",
+        "port": 27017,
+        "primary_db": "movies",
+        "grd_truth_collection": "movies_ground_truth",
+        "entity_a": "imdb_profiles",
+        "entity_b": "dbpedia_profiles",
+        "label_pool": "label_pool",
+        "label_pool_col": "label_primary",
+        "label_secondary_col": "label_secondary",
+        "label_aug_col": "label_aug_col",
+        "candidate_pool": "candidate_pool",
+        "cand_collection": "cand_primary",
+        "secondary_pool": "cand_secondary",
+        "store_batch_size": 5000,
+        "num_rec_proc": 1000,
+        "data_selection_strategy": 3,
+        "num_rec_retrieve": 1000,
+        "time_window_min": 5
+    },
+    "kafka": {
+        "topic": "EMStream_project-V24",
+        "localhost": "localhost",
+        "bootstrap_port": "9092",
+        "auto_offset_reset": "latest",
+        "group_a": "consumer-group-a",
+        "input": "../input/Movies_iter/h1_movies/file_5.txt"
+    },
+    "deep_learning": {
+        "MAX_LEN": 128,
+        "BATCH_SIZE_SSL": 64,
+        "BATCH_SIZE": 64,
+        "lr": 5e-05,
+        "EPOCHS": 2,
+        "SSL_EPOCHS": 2,
+        "ICL_EPOCHS": 2,
+	    "MAML": true,
+        "size": null,
+	    "clustering": true,
+        "lm": "roberta",
+        "da_ssl": "all",
+        "alpha_aug": 0.8,
+        "save_model": true,
+        "th_match_perc": 10,
+        "data_aug": true,
+        "th_f1": 0.95,
+        "ewc_lambda": 0.4,
+        "pre_trained_model_loss": 0.05,
+        "input_folder": "../input",
+        "ewc_pickle_path": "../models/ewc.pickle",
+        "PRE_TRAINED_MODEL": "../checkpoints/"
+    },
+    "aug": {
+        "aug_probs": 0.5,
+        "del_probs": 0.3,
+        "del_col": true,
+        "col_names": ["profile_id", "imdb_ksearch_id"],
+        "unmatch_entities_aug": {
+            "duplicate_entity": "B",
+            "del_ele": false,
+            "del_probs": 0.3,
+            "aug_probs_key": 0.4,
+            "aug_word_key_val": "VAL",
+            "aug_word_type": "SPL",
+            "aug_char_key_val": "VAL",
+            "aug_char_type": "KBE"
+        },
+        "match_entities_aug": {
+            "del_ele": false,
+            "del_probs": 0.3,
+            "aug_probs_key": 0.4,
+            "aug_word_key_val": "VAL",
+            "aug_word_type": "SPL",
+            "aug_char_key_val": "VAL",
+            "aug_char_type": "KBE"
+        }
+    },
+    "classifier": {
+        "model_path_1": "../models/model1/",
+        "model_path_2": "../models/model2/"
+    }
+}

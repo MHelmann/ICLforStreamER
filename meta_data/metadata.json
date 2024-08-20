@@ -1,0 +1,18 @@
+{
+    "PRE_TRAINED_MODEL_PATH": "../models/model_pool/",
+    "pool": {
+        "model_f1": 0.0,
+        "model_acc_flag": false,
+        "last_store_ts": 1710085166.703743
+    },
+    "label_pool": {
+        "last_fetch_ts": 1710085166.703743,
+        "num_record_retrieve": 2000
+    },
+    "icl_pool": {
+        "last_fetch_ts": 1710085166.703743,
+        "num_record_retrieve": 2000
+    },
+    "model_flag": false,
+    "time_range_flag": false
+}

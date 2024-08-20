@@ -1,0 +1,48 @@
+import sys
+import logging
+
+sys.path.append('../')
+from flask import Flask, request, jsonify
+from classifier.model1 import get_model1
+
+app = Flask(__name__)
+
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    shutdown_server()
+    return 'Classifier app1 shutting down...'
+
+
+@app.route("/predict", methods=['POST'])
+def predict():
+    if request.method == 'POST':
+        data = request.get_json(force=True)
+        entity_pairs_series = data["entity_pairs"]
+        model = get_model1()
+        predicted_class, confidence = model.predict(entity_pairs_series)
+        confidence = confidence.tolist()[0]
+
+        return jsonify({
+            'class': predicted_class,
+            'confidence': confidence
+        })
+
+
+def execute_classifier_app1():
+    app.run(host="127.0.0.1", port=5001)
+
+
+if __name__ == "__main__":
+    # To execute the function
+    app.run(host="127.0.0.1", port=5001)

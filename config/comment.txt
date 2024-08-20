@@ -1,0 +1,64 @@
+Comments about configuration parameters.
+
+General Parameters -
+    "pool_a_file": file path containing entity description file,
+    "pool_b_file": file path containing entity description file,
+    "ground_truth_file": file path containing ground truth label file,
+
+    MongoDB configuration parameters :
+        "host": host name or IP address of the mongoDB database,
+        "port": port number used by mongoDB database,
+        "primary_db": primary database name in mongoDB,
+        "grd_truth_collection": collection name containing fround truth of entity pairs,
+        "entity_a": collection name containing entity descriptions from entity pool A,
+        "entity_b": collection name containing entity descriptions from entity pool B,
+        "store_batch_size", "num_rec_proc": the batch size for storing the batch in candidate pool,
+        "data_selection_strategy": sample selection strategy,
+        "num_rec_retrieve": sample size for labelling and training the model,
+        "time_window_min": time window in minutes, this is sliding time window
+
+    Kafka configuaration parameters :
+        "topic": name of the kafka-topic,
+        "localhost": host name or IP address of the kafka application,
+        "bootstrap_port": port number used by kafka application,
+        "auto_offset_reset": default value "latest",
+        "group_a": consumers group name,
+        "input": file containing entity pair ids that needs to be produced to kafka topic
+
+    Deep Learning configuration parameters :
+        "MAX_LEN": 512, maximum length of BERT model's input tokens,
+        "BATCH_SIZE_SSL": batch size for ssl/icl training,
+        "BATCH_SIZE": batch size for classification layer training,
+        "lr": learning rate for model training,
+        "EPOCHS": number of epochs for model training,
+        "SSL_EPOCHS": number of epochs for self-supervise learning (SSL),
+        "ICL_EPOCHS": number of epochs for incremental contrastive learning (ICL),
+        "MAML": Model agnostic meta-learning extension of ICL training
+        "size": size of no label data set used for SSL and ICL,
+	    "clustering": Clustering-based negative sampling
+        "lm": Pre-trained Language Model
+        "da_ssl": "cutoff" or "all" specifies the type of entity augmentation for ssl data set,
+        "save_model": TRUE or FALSE, if model needs to be saved in every iteration,
+        "th_match_perc": threshold percentage of entity pairs belonging to match class,
+        "th_f1": threshold F1 score of model,
+        "ewc_lambda": Regularization parameter - Importance of old task compared to new one,
+        "data_aug": TRUE or FALSE, if augmentation is required,
+
+
+    Augmentation configuration parameters :
+        "aug_probs": probability of augmentation application on dataset,
+        "del_probs": probability of elements to be deleted in entity,
+        "del_col": TRUE, if the columns needs to be deleted,
+        "col_names": list of column names for deletion,
+        "duplicate_entity": A or B, the entity description that will be duplicates,
+        "del_ele": TRUE or FALSE, the columns that needs to be deleted,
+        "del_probs": probability of columns needs to be deleted,
+        "aug_probs_key": probability of key-value pairs of entity desriptions that needs augmentation,
+        "aug_word_key_val": KEY, VAL, or BOTH, specifies the applying augmentation to key or val or both of entity descriptions,
+        "aug_word_type": SYN, SPL, or BOTH, specifies applying type of augmentation used for entity descriptions,
+        "aug_char_key_val": KEY, VAL, or BOTH, specifies the applying augmentation to key or val or both of entity descriptions,
+        "aug_char_type": KBE, RCE, or BOTH, specifies the applying type of augmentation used for entity descriptions,
+
+    Classifier :
+        "model_path_1": path that saves model for FLASK_APP1,
+        "model_path_2": path that saves model for FLASK_APP2
